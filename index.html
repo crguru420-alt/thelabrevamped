@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>The Lab | Rare Username Vault — Premium Collection</title>
+  <title>The Lab V2 | Exclusive Username Vault</title>
+  <meta name="description" content="Premium 3L semi and 4L usernames. Rarity-based pricing, secure Discord transactions.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -12,621 +15,549 @@
     }
 
     :root {
-      --primary: #C41E3A;
-      --primary-glow: #FF4D6D;
-      --primary-dark: #8B0000;
-      --text-light: #F1F5F9;
-      --text-muted: #A0AAB5;
-      --price-gold: #FFD966;
-      --card-bg: rgba(18, 18, 22, 0.88);
+      --primary: #DC2626;
+      --primary-dark: #991B1B;
+      --primary-glow: #EF4444;
+      --accent: #F97316;
+      --bg-dark: #030303;
+      --bg-elevated: #0C0C0F;
+      --card-bg: rgba(18, 18, 24, 0.92);
+      --text-primary: #FAFAFA;
+      --text-secondary: #A1A1AA;
+      --text-muted: #71717A;
+      --border-light: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(220, 38, 38, 0.4);
       --success: #10B981;
-      --warning: #F59E0B;
+      --gold: #FBBF24;
+      --gradient-1: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
+      --gradient-gold: linear-gradient(135deg, #FBBF24, #F59E0B);
     }
 
     body {
-      background: radial-gradient(circle at 20% 30%, #0D0D12, #020202);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      color: var(--text-light);
+      background: var(--bg-dark);
+      font-family: 'Inter', sans-serif;
+      color: var(--text-primary);
       line-height: 1.5;
-      min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #1a1a1a;
-    }
-    ::-webkit-scrollbar-thumb {
+    /* Custom Cursor (premium feel) */
+    .cursor-dot {
+      width: 6px;
+      height: 6px;
       background: var(--primary);
-      border-radius: 4px;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s;
     }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--primary-glow);
+    .cursor-ring {
+      width: 30px;
+      height: 30px;
+      border: 2px solid rgba(220, 38, 38, 0.5);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      transition: all 0.15s ease;
     }
 
-    /* Portal Overlay */
-    .portal-overlay {
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #111; }
+    ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+    /* Entrance Overlay V2 */
+    .entrance-v2 {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(ellipse at center, #0A0102 0%, #000000 100%);
+      background: #000000;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 10000;
-      transition: opacity 1.2s cubic-bezier(0.2, 0.9, 0.4, 1), visibility 1.2s;
+      transition: clip-path 1.5s cubic-bezier(0.77, 0, 0.18, 1);
+      clip-path: circle(150% at 50% 50%);
     }
-
-    .portal-content {
+    .entrance-v2.exit {
+      clip-path: circle(0% at 50% 50%);
+      pointer-events: none;
+    }
+    .entrance-content {
       text-align: center;
-      animation: portalPulse 2.2s infinite alternate;
+      animation: fadeScale 1s ease;
     }
-
-    .portal-logo {
-      font-size: clamp(3rem, 12vw, 5.6rem);
+    @keyframes fadeScale {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .entrance-logo {
+      font-size: clamp(3rem, 10vw, 5rem);
       font-weight: 800;
-      letter-spacing: 0.25em;
-      background: linear-gradient(135deg, #FFFFFF, #C41E3A);
+      background: linear-gradient(135deg, #FFFFFF, #DC2626, #F97316);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      text-shadow: 0 0 18px rgba(196,30,58,0.6);
-      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
     }
-
-    .portal-sub {
-      font-size: 0.9rem;
-      letter-spacing: 0.3rem;
-      text-transform: uppercase;
-      color: #B0B8C5;
-      margin-bottom: 2rem;
+    .entrance-badge {
+      display: inline-block;
+      background: rgba(220, 38, 38, 0.2);
+      border: 1px solid rgba(220, 38, 38, 0.5);
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      margin-top: 1rem;
+      letter-spacing: 1px;
     }
-
-    .enter-button {
+    .enter-btn-v2 {
+      margin-top: 2rem;
       background: transparent;
-      border: 1.5px solid #C41E3A;
-      padding: 0.9rem 2.6rem;
+      border: 1.5px solid var(--primary);
+      padding: 0.9rem 2.5rem;
       font-weight: 600;
-      font-size: 1rem;
-      letter-spacing: 0.2rem;
-      color: #C41E3A;
+      color: var(--primary);
       cursor: pointer;
       transition: all 0.4s;
-      border-radius: 40px;
-      position: relative;
-      overflow: hidden;
+      border-radius: 60px;
+      font-size: 1rem;
     }
-
-    .enter-button:hover {
-      background: #C41E3A;
-      color: #0A0A0C;
-      box-shadow: 0 0 24px #FF4D6D;
+    .enter-btn-v2:hover {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 0 30px rgba(220,38,38,0.5);
       transform: scale(1.02);
     }
 
-    @keyframes portalPulse {
-      0% { opacity: 0.7; transform: scale(0.96); }
-      100% { opacity: 1; transform: scale(1.02); }
-    }
-
-    .portal-hidden {
+    /* Main Content */
+    .main-v2 {
       opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
+      transition: opacity 1.2s ease;
     }
-
-    .main-site {
-      opacity: 0;
-      transition: opacity 1.8s cubic-bezier(0.2, 0.9, 0.4, 1);
-    }
-
-    .main-site.reveal-main {
+    .main-v2.revealed {
       opacity: 1;
     }
 
-    /* Floating Particles */
-    .floating-particles {
+    /* Floating Particles V2 */
+    .particles-v2 {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
     }
-
-    .particle {
+    .particle-v2 {
       position: absolute;
-      font-weight: 600;
-      font-size: clamp(0.8rem, 2.5vw, 2rem);
+      font-family: monospace;
+      font-weight: 500;
+      opacity: 0.04;
       color: var(--primary);
-      opacity: 0.08;
-      white-space: nowrap;
-      animation: floatParticle 25s linear infinite;
+      font-size: clamp(0.8rem, 2vw, 1.5rem);
+      animation: floatParticleV2 20s linear infinite;
     }
-
-    @keyframes floatParticle {
-      0% { transform: translateX(-10vw) translateY(-10vh) rotate(0deg); }
-      100% { transform: translateX(110vw) translateY(100vh) rotate(360deg); }
+    @keyframes floatParticleV2 {
+      0% { transform: translateY(100vh) translateX(-20vw) rotate(0deg); }
+      100% { transform: translateY(-20vh) translateX(20vw) rotate(360deg); }
     }
 
     /* Header */
-    .site-header {
-      text-align: center;
-      padding: 1.8rem 1.5rem 1rem;
-      background: rgba(5, 5, 8, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(196, 30, 58, 0.5);
+    .header-v2 {
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 100;
+      background: rgba(3, 3, 3, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 1rem 2rem;
     }
-
-    .logo-link {
-      font-size: 2.2rem;
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .logo-v2 {
+      font-size: 1.8rem;
       font-weight: 800;
-      background: linear-gradient(120deg, #fff, #E05A6F);
+      background: linear-gradient(135deg, #fff, var(--primary));
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
       text-decoration: none;
-      letter-spacing: -0.5px;
     }
-
-    .tagline {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-top: 0.3rem;
-    }
-
-    .nav-links {
+    .nav-v2 {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
       gap: 0.5rem;
-      margin-top: 1.2rem;
-      list-style: none;
+      flex-wrap: wrap;
     }
-
-    .nav-links a {
-      color: #E0E7FF;
+    .nav-v2 a {
+      color: var(--text-secondary);
       text-decoration: none;
-      padding: 0.4rem 1rem;
+      padding: 0.5rem 1rem;
       border-radius: 40px;
-      font-weight: 500;
       font-size: 0.85rem;
+      font-weight: 500;
       transition: all 0.2s;
       cursor: pointer;
-      background: rgba(255,255,255,0.03);
     }
-
-    .nav-links a:hover {
+    .nav-v2 a:hover, .nav-v2 a.active-nav {
       background: var(--primary);
-      color: #0F0F12;
-      transform: translateY(-2px);
+      color: white;
     }
-
-    .announcement {
-      background: linear-gradient(90deg, rgba(196,30,58,0.2), rgba(196,30,58,0.35), rgba(196,30,58,0.2));
-      text-align: center;
-      padding: 0.7rem;
+    .discord-badge {
+      background: #5865F2;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
       font-size: 0.85rem;
-      font-weight: 500;
-      backdrop-filter: blur(4px);
-      border-bottom: 1px solid rgba(255,77,109,0.3);
-      animation: subtleGlow 3s infinite;
+      font-weight: 600;
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: 0.2s;
+    }
+    .discord-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(88,101,242,0.3);
     }
 
-    @keyframes subtleGlow {
-      0%, 100% { text-shadow: 0 0 0px rgba(255,77,109,0); }
-      50% { text-shadow: 0 0 5px rgba(255,77,109,0.5); }
+    /* Announcement */
+    .marquee {
+      background: rgba(220, 38, 38, 0.15);
+      padding: 0.7rem;
+      text-align: center;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(220,38,38,0.3);
     }
 
-    .container {
-      max-width: 1300px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
+    .container-v2 {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
       position: relative;
       z-index: 2;
     }
 
-    /* Hero Section */
-    .hero {
-      background: linear-gradient(135deg, rgba(30, 15, 20, 0.85), rgba(5, 5, 8, 0.95));
-      backdrop-filter: blur(5px);
+    /* Hero V2 */
+    .hero-v2 {
+      background: linear-gradient(145deg, rgba(20, 10, 12, 0.7), rgba(0, 0, 0, 0.9));
       border-radius: 2rem;
       padding: 3rem 2rem;
       text-align: center;
-      border: 1px solid rgba(196, 30, 58, 0.5);
-      margin-bottom: 2.5rem;
-      position: relative;
-      overflow: hidden;
+      border: 1px solid rgba(220,38,38,0.3);
+      margin-bottom: 3rem;
+      backdrop-filter: blur(8px);
     }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(196,30,58,0.1) 0%, transparent 70%);
-      animation: rotateGlow 20s linear infinite;
-    }
-
-    @keyframes rotateGlow {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .hero h2 {
-      font-size: 2.5rem;
-      background: linear-gradient(135deg, #fff, #FFA5B6);
+    .hero-v2 h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #fff, var(--primary));
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      position: relative;
-      z-index: 1;
     }
-
-    .hero p {
-      position: relative;
-      z-index: 1;
-      margin-top: 0.8rem;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      padding: 0.8rem 2rem;
-      border-radius: 60px;
-      font-weight: 600;
-      margin-top: 1.2rem;
-      text-decoration: none;
-      transition: all 0.3s;
-      cursor: pointer;
-      border: none;
-      position: relative;
-      z-index: 1;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(196,30,58,0.4);
-      background: linear-gradient(135deg, #FF4D6D, var(--primary));
-    }
-
-    .section-title {
-      font-size: 1.8rem;
-      margin: 2rem 0 1.5rem;
-      border-left: 4px solid var(--primary);
-      padding-left: 1rem;
+    .stats-grid {
       display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .category-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
       justify-content: center;
-      margin: 1.5rem 0 2rem;
+      gap: 2rem;
+      margin: 2rem 0 1rem;
+      flex-wrap: wrap;
     }
-
-    .cat-pill {
-      background: rgba(30, 30, 40, 0.7);
-      padding: 0.6rem 1.5rem;
-      border-radius: 40px;
-      font-weight: 500;
-      color: #E0E0E8;
-      transition: all 0.25s;
-      cursor: pointer;
-      border: 1px solid transparent;
+    .stat-card {
+      background: rgba(0,0,0,0.5);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
       backdrop-filter: blur(4px);
     }
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
 
-    .cat-pill.active-cat {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    /* Filter Pills */
+    .filter-section {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+    .filter-pill {
+      background: rgba(30,30,40,0.6);
+      border: none;
+      padding: 0.6rem 1.5rem;
+      border-radius: 60px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      backdrop-filter: blur(4px);
+    }
+    .filter-pill.active {
+      background: var(--gradient-1);
       color: white;
-      border-color: var(--primary-glow);
-      box-shadow: 0 0 12px rgba(196,30,58,0.4);
+      box-shadow: 0 0 12px rgba(220,38,38,0.4);
+    }
+    .filter-pill:hover:not(.active) {
+      background: rgba(220,38,38,0.3);
+      color: white;
     }
 
-    .cat-pill:hover:not(.active-cat) {
-      border-color: var(--primary);
-      background: rgba(196, 30, 58, 0.2);
-      transform: translateY(-2px);
-    }
-
-    .products-grid {
+    /* Products Grid V2 */
+    .products-grid-v2 {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 1.5rem;
-      margin-bottom: 2rem;
+      margin: 2rem 0;
     }
-
-    .product-card {
+    .product-card-v2 {
       background: var(--card-bg);
-      backdrop-filter: blur(8px);
-      border-radius: 1.2rem;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 1.5rem;
+      border: 1px solid var(--border-light);
       padding: 1.3rem;
-      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1);
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       position: relative;
       overflow: hidden;
     }
-
-    .product-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(196,30,58,0.1), transparent);
-      transition: left 0.5s;
-    }
-
-    .product-card:hover::before {
-      left: 100%;
-    }
-
-    .product-card:hover {
-      transform: translateY(-8px);
+    .product-card-v2:hover {
+      transform: translateY(-6px);
       border-color: var(--primary);
-      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.5);
+      box-shadow: 0 20px 30px -15px rgba(0,0,0,0.5);
     }
-
-    .username-display {
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .username-v2 {
       font-size: 1.7rem;
       font-weight: 700;
-      letter-spacing: 0.02em;
-      background: linear-gradient(145deg, #fff, #E2C0C8);
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      background: linear-gradient(145deg, #fff, #E5E7EB);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      font-family: 'Monaco', 'Menlo', monospace;
     }
-
-    .meaning {
+    .rarity-badge {
+      font-size: 0.65rem;
+      background: rgba(220,38,38,0.2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+    }
+    .meaning-text {
       font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 0.4rem;
+      color: var(--text-secondary);
+      margin: 0.5rem 0;
       border-left: 2px solid var(--primary);
       padding-left: 0.6rem;
     }
-
-    .price {
-      font-size: 1.6rem;
+    .price-v2 {
+      font-size: 1.7rem;
       font-weight: 800;
-      margin: 0.6rem 0;
+      margin: 0.7rem 0;
     }
-
-    .price-value {
-      background: linear-gradient(135deg, var(--price-gold), #FFB347);
+    .price-v2 span {
+      background: var(--gradient-gold);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
     }
-
-    .rarity-tag {
-      display: inline-block;
-      font-size: 0.6rem;
-      background: rgba(196, 30, 58, 0.25);
-      padding: 0.2rem 0.6rem;
-      border-radius: 20px;
-      margin-left: 0.5rem;
-      vertical-align: middle;
-      font-weight: 500;
-    }
-
-    .stock-badge {
+    .stock-indicator {
       font-size: 0.7rem;
-      background: rgba(196, 30, 58, 0.2);
+      background: rgba(16,185,129,0.15);
       display: inline-block;
       padding: 0.2rem 0.7rem;
       border-radius: 30px;
-      font-weight: 500;
+      color: var(--success);
     }
-
-    .stock-badge.out-of-stock {
-      background: rgba(100, 100, 120, 0.3);
-      color: #9CA3AF;
+    .stock-indicator.out {
+      background: rgba(100,100,120,0.2);
+      color: var(--text-muted);
     }
-
-    .discord-btn {
-      background: linear-gradient(135deg, rgba(196, 30, 58, 0.9), rgba(139, 0, 0, 0.9));
-      border: none;
+    .action-btn {
       width: 100%;
-      margin-top: 0.9rem;
+      margin-top: 1rem;
+      background: linear-gradient(135deg, rgba(220,38,38,0.9), rgba(153,27,27,0.9));
+      border: none;
       padding: 0.7rem;
-      border-radius: 40px;
+      border-radius: 60px;
       font-weight: 600;
-      color: #fff;
+      color: white;
       cursor: pointer;
+      transition: all 0.2s;
       font-family: inherit;
-      transition: all 0.25s;
     }
-
-    .discord-btn:hover {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    .action-btn:hover:not(:disabled) {
       transform: scale(0.98);
-      box-shadow: 0 4px 12px rgba(196,30,58,0.4);
+      background: var(--primary);
+      box-shadow: 0 4px 12px rgba(220,38,38,0.4);
     }
-
-    .discord-btn.disabled {
-      background: #2d2d35;
+    .action-btn:disabled {
+      opacity: 0.5;
       cursor: not-allowed;
-      opacity: 0.6;
     }
 
-    .discord-btn.disabled:hover {
-      transform: none;
-      box-shadow: none;
+    /* Trust Section */
+    .trust-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
     }
-
-    .trust-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin: 2.5rem 0;
-    }
-    .trust-item {
-      flex: 1;
-      background: rgba(0, 0, 0, 0.5);
+    .trust-card {
+      background: rgba(0,0,0,0.4);
       backdrop-filter: blur(8px);
       border-radius: 1.2rem;
       padding: 1.2rem;
       text-align: center;
-      border: 1px solid rgba(255,255,255,0.05);
-      transition: transform 0.25s;
+      border: 1px solid var(--border-light);
     }
-    .trust-item:hover {
-      transform: translateY(-4px);
-      border-color: rgba(196,30,58,0.3);
-    }
-    .trust-icon {
+    .trust-card i {
       font-size: 2rem;
-      display: block;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
     }
-    .reviews-mini {
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(8px);
+
+    .reviews-v2 {
+      background: rgba(0,0,0,0.4);
       border-radius: 1.5rem;
       padding: 1.5rem;
       margin: 2rem 0;
     }
-    .review-text {
-      font-style: italic;
-      margin: 0.8rem 0;
+    .review-item {
       border-left: 2px solid var(--primary);
       padding-left: 1rem;
-      font-size: 0.9rem;
+      margin: 1rem 0;
+      font-style: italic;
+      color: var(--text-secondary);
     }
-    .stats-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(0,0,0,0.4);
-      border-radius: 1rem;
-      padding: 0.8rem 1.2rem;
-      margin-bottom: 1rem;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+
+    .cta-v2 {
+      background: linear-gradient(135deg, rgba(220,38,38,0.2), rgba(0,0,0,0.6));
+      border-radius: 1.5rem;
+      padding: 2rem;
+      text-align: center;
+      margin: 2rem 0;
     }
-    .stat-item {
-      font-size: 0.85rem;
-    }
-    .stat-number {
-      font-weight: 700;
-      color: var(--primary-glow);
-      font-size: 1.1rem;
-    }
+
     footer {
       text-align: center;
       padding: 2rem;
-      border-top: 1px solid rgba(196, 30, 58, 0.2);
+      border-top: 1px solid var(--border-light);
       margin-top: 2rem;
       font-size: 0.75rem;
-      color: #7A7F8C;
+      color: var(--text-muted);
     }
-    @media (max-width: 680px) {
-      .hero h2 { font-size: 1.6rem; }
-      .price { font-size: 1.3rem; }
-      .section-title { font-size: 1.4rem; }
-      .container { padding: 0 1rem; }
-      .products-grid { grid-template-columns: 1fr; }
+
+    @media (max-width: 768px) {
+      .container-v2 { padding: 1rem; }
+      .hero-v2 h1 { font-size: 1.8rem; }
+      .products-grid-v2 { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<div id="portalOverlay" class="portal-overlay">
-  <div class="portal-content">
-    <div class="portal-logo">THE LAB</div>
-    <div class="portal-sub">EXCLUSIVE RARITY VAULT</div>
-    <button id="enterBtn" class="enter-button">✦ ENTER THE COLLECTION ✦</button>
+<!-- Custom Cursor (hidden on mobile) -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- Entrance V2 -->
+<div id="entranceV2" class="entrance-v2">
+  <div class="entrance-content">
+    <div class="entrance-logo">THE LAB</div>
+    <div class="entrance-badge">✦ V2 — RARITY VAULT ✦</div>
+    <button id="enterV2Btn" class="enter-btn-v2">ACCESS COLLECTION</button>
   </div>
 </div>
 
-<div id="mainSite" class="main-site">
-  <header class="site-header">
-    <div class="logo-link">THE LAB</div>
-    <div class="tagline">✦ curated 3L semi & 4L — rarity based pricing ($10-28) ✦</div>
-    <ul class="nav-links">
-      <li><a data-cat="all">All Stock</a></li>
-      <li><a data-cat="3L-semi">3L Semi</a></li>
-      <li><a data-cat="4L">4L Letters</a></li>
-      <li><a data-cat="mixed">Mixed</a></li>
-    </ul>
+<!-- Main Content -->
+<div id="mainV2" class="main-v2">
+  <header class="header-v2">
+    <div class="header-container">
+      <a href="#" class="logo-v2">THE LAB<span style="color:#DC2626;"> V2</span></a>
+      <div class="nav-v2">
+        <a data-nav="all" class="active-nav">All Stock</a>
+        <a data-nav="3L-semi">3L Semi</a>
+        <a data-nav="4L">4L Letters</a>
+        <a data-nav="mixed">Mixed</a>
+      </div>
+      <a href="https://discord.gg/EtP4Zbt4rQ" target="_blank" class="discord-badge">
+        <i class="fab fa-discord"></i> Discord Hub
+      </a>
+    </div>
   </header>
-  <div class="announcement">
-    🔥 HOT DROPS: eokg (4L) + vw.b (3L-semi) • 3L pure coming soon — currently out of stock • flexible Discord tickets
+  <div class="marquee">
+    <i class="fas fa-fire"></i> NEW: eokg (4L) + vw.b (3L-semi) • 3L pure: RESTOCKING SOON • flexible pricing via tickets
   </div>
 
-  <div class="container">
-    <div class="hero">
-      <h2>Own a piece of digital rarity</h2>
-      <p>Exclusive 3L semi & 4L usernames — each name is unique, prices reflect true scarcity ($10–28).</p>
-      <button id="heroCta" class="btn-primary">✨ Explore the vault</button>
+  <div class="container-v2">
+    <div class="hero-v2">
+      <h1>Own Digital Rarity</h1>
+      <p style="margin-top: 0.5rem;">Curated 3L semi & 4L usernames • rarity-based pricing ($10–28)</p>
+      <div class="stats-grid">
+        <div class="stat-card"><span class="stat-number" id="statTotal">0</span><br>Available</div>
+        <div class="stat-card"><span class="stat-number" id="statPremium">0</span><br>Premium Tier</div>
+        <div class="stat-card"><span class="stat-number">1</span><br>Per Name</div>
+      </div>
     </div>
 
-    <div class="stats-bar">
-      <div class="stat-item">📦 <span class="stat-number" id="totalCount">0</span> available names</div>
-      <div class="stat-item">💎 <span class="stat-number" id="premiumCount">0</span> premium tier</div>
-      <div class="stat-item">⚡ all single stock — first come, first served</div>
+    <!-- Filter Pills -->
+    <div class="filter-section">
+      <button class="filter-pill active" data-filter="all">✨ All Names</button>
+      <button class="filter-pill" data-filter="3L-semi">◈ 3L Semi</button>
+      <button class="filter-pill" data-filter="4L">◆ 4L Letters</button>
+      <button class="filter-pill" data-filter="mixed">● Mixed</button>
     </div>
 
-    <div class="category-grid" id="categoryFilter">
-      <button data-filter="all" class="cat-pill active-cat">✨ All names</button>
-      <button data-filter="3L-semi" class="cat-pill">◈ 3L Semi (with punct.)</button>
-      <button data-filter="4L" class="cat-pill">◆ 4L Letters</button>
-      <button data-filter="mixed" class="cat-pill">● Mixed (alphanumeric)</button>
+    <!-- Products Grid -->
+    <div id="productsGridV2" class="products-grid-v2"></div>
+
+    <!-- Trust & Reviews -->
+    <div class="trust-section">
+      <div class="trust-card"><i class="fas fa-shield-alt"></i><h3>Secure Escrow</h3><p>Discord ticket system</p></div>
+      <div class="trust-card"><i class="fas fa-bolt"></i><h3>Instant Delivery</h3><p>Within hours</p></div>
+      <div class="trust-card"><i class="fas fa-gem"></i><h3>Rare Curation</h3><p>Hand-picked names</p></div>
     </div>
 
-    <div class="section-title">✦ AVAILABLE RARE USERNAMES</div>
-    <div id="productsGrid" class="products-grid"></div>
-
-    <div class="trust-row">
-      <div class="trust-item"><span class="trust-icon">★</span><h3>Trusted vault</h3><p>500+ successful transfers</p></div>
-      <div class="trust-item"><span class="trust-icon">🔒</span><h3>Secure tickets</h3><p>Discord escrow & instant support</p></div>
-      <div class="trust-item"><span class="trust-icon">⚡</span><h3>Instant delivery</h3><p>Within hours after confirmation</p></div>
+    <div class="reviews-v2">
+      <h3><i class="fas fa-star" style="color: var(--gold);"></i> Collector Feedback</h3>
+      <div class="review-item">“vw.b is insanely clean — smooth transaction, fair price for 3L semi.” — @zenith</div>
+      <div class="review-item">“eokg was exactly what I needed. The Lab’s curation is elite.” — @velvet</div>
+      <div class="review-item">“Patiently waiting for 3L pure restock, but their 4L collection is fire.” — @drifter</div>
     </div>
 
-    <div class="reviews-mini">
-      <h3>𓂀 collector testimonials</h3>
-      <div class="review-text">“Grabbed 'vw.b' — insane 3L semi. Smooth transaction, fair price for the rarity.” — @zenith</div>
-      <div class="review-text">“eokg is a clean 4L gem. The Lab's curation is unmatched.” — @velvet</div>
-      <div class="review-text">“Patiently waiting for 3L pure restock, but their 4L collection is fire.” — @drifter</div>
-      <div class="review-text">“Best username marketplace — transparent pricing and fast delivery.” — @lucid</div>
-    </div>
-
-    <div style="background: linear-gradient(135deg, rgba(196,30,58,0.2), rgba(0,0,0,0.6)); border-radius: 1.5rem; padding: 1.5rem; text-align: center; margin-top: 1rem;">
-      <p>✧ Ready to claim? Join our Discord, open a <strong>#purchase-ticket</strong> — we'll work with your budget ✧</p>
-      <a href="https://discord.gg/EtP4Zbt4rQ" target="_blank" class="btn-primary" style="background:#5865F2; display: inline-block; margin-top: 0.8rem;">➤ Join Discord Hub</a>
+    <div class="cta-v2">
+      <i class="fas fa-ticket-alt" style="font-size: 1.5rem;"></i>
+      <p style="margin: 0.5rem 0;">Ready to claim? Open a <strong>#purchase-ticket</strong> on Discord — we'll match your budget.</p>
+      <a href="https://discord.gg/EtP4Zbt4rQ" target="_blank" style="background: #5865F2; display: inline-block; margin-top: 0.5rem; padding: 0.6rem 1.5rem; border-radius: 40px; color: white; text-decoration: none;">Join Discord →</a>
     </div>
   </div>
-  <footer><p>© <span id="year"></span> The Lab — rarity‑adjusted pricing • 3L pure: out of stock (coming soon) • 4L $10–20 • 3L semi $20–28</p></footer>
+  <footer>
+    <p>© 2025 The Lab V2 — rarity‑adjusted pricing • 3L pure: out of stock (coming soon) • 4L $10–20 • 3L semi $20–28</p>
+  </footer>
 </div>
 
-<div class="floating-particles" id="particles"></div>
+<!-- Particles Background -->
+<div class="particles-v2" id="particlesV2"></div>
 
 <script>
-  // ======================= PRODUCT DATABASE =======================
-  // NO 3L PURE — all 3L pure are marked as OUT OF STOCK (not shown in grid)
-  // Only 3L-semi, 4L, and mixed are available with stock = 1
-  // NEW: eokg (4L) and vw.b (3L-semi) are included
-  
-  const allProducts = [
-    // 4L Usernames ($10-20 range) - ALL IN STOCK
+  // ======================= PRODUCT DATABASE V2 =======================
+  // NO 3L PURE (out of stock / not displayed)
+  // Includes eokg (4L) and vw.b (3L-semi)
+  const productsV2 = [
+    // 4L Usernames ($10-20)
     { username: 'xuqg', category: '4L', meaning: '', price: 12.50, stock: 1 },
     { username: 'zdbv', category: '4L', meaning: '', price: 14.75, stock: 1 },
     { username: 'xqbu', category: '4L', meaning: '', price: 16.25, stock: 1 },
@@ -659,133 +590,140 @@
     { username: 'olrr', category: '4L', meaning: '', price: 12.50, stock: 1 },
     { username: 'wfgo', category: '4L', meaning: '', price: 13.00, stock: 1 },
     { username: 'eokg', category: '4L', meaning: 'clean quadruple — fresh drop', price: 16.95, stock: 1 },
-    // Mixed usernames
+    // Mixed
     { username: 'apb4', category: 'mixed', meaning: 'alphanumeric edge', price: 14.50, stock: 1 },
     { username: 'at0t', category: 'mixed', meaning: 'zero touch', price: 13.75, stock: 1 },
-    // 3L-semi usernames ($20-28 range)
+    // 3L-semi ($20-28)
     { username: 'ct_x', category: '3L-semi', meaning: 'crisp + underscore', price: 22.50, stock: 1 },
     { username: 'y.dh', category: '3L-semi', meaning: 'dot elegance', price: 25.75, stock: 1 },
     { username: 'xe.i', category: '3L-semi', meaning: 'rare punctuation', price: 26.90, stock: 1 },
-    { username: 'vw.b', category: '3L-semi', meaning: 'dot rarity · exclusive vault', price: 24.50, stock: 1 }
+    { username: 'vw.b', category: '3L-semi', meaning: 'dot rarity · exclusive', price: 24.50, stock: 1 }
   ];
 
-  // Filter out any 3L pure — they don't exist in this list, but ensure no stray entries
-  const productsData = allProducts.filter(p => p.category !== '3L');
+  // No 3L pure — all good
 
-  let activeFilter = 'all';
+  let currentFilter = 'all';
 
-  function updateStats() {
-    const total = productsData.length;
-    const premium = productsData.filter(p => (p.category === '3L-semi') || (p.category === '4L' && p.price >= 16)).length;
-    document.getElementById('totalCount').innerText = total;
-    document.getElementById('premiumCount').innerText = premium;
+  function updateStatsUI() {
+    const available = productsV2.length;
+    const premium = productsV2.filter(p => p.category === '3L-semi' || (p.category === '4L' && p.price >= 16)).length;
+    document.getElementById('statTotal').innerText = available;
+    document.getElementById('statPremium').innerText = premium;
   }
 
-  function renderProducts(filterCat = 'all') {
-    const grid = document.getElementById('productsGrid');
+  function renderProductsV2() {
+    const grid = document.getElementById('productsGridV2');
     if (!grid) return;
-    let filtered = productsData;
-    if (filterCat !== 'all') {
-      filtered = productsData.filter(p => p.category === filterCat);
+    let filtered = productsV2;
+    if (currentFilter !== 'all') {
+      filtered = productsV2.filter(p => p.category === currentFilter);
     }
     if (filtered.length === 0) {
-      grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:3rem; background: rgba(0,0,0,0.3); border-radius: 2rem;">
-        ✨ No usernames in this category — 3L pure is currently out of stock. Join Discord for restock alerts ✨
+      grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:3rem; background:rgba(0,0,0,0.3); border-radius:2rem;">
+        <i class="fas fa-hourglass-half"></i> No usernames in this category — 3L pure is currently out of stock. Join Discord for updates.
       </div>`;
       return;
     }
-    grid.innerHTML = filtered.map(product => {
-      const meaningHtml = product.meaning ? `<div class="meaning">📖 ${product.meaning}</div>` : '';
-      let rarityLabel = '';
-      if (product.category === '3L-semi') rarityLabel = '<span class="rarity-tag">◈ semi-rare</span>';
-      else if (product.category === '4L' && product.price >= 16) rarityLabel = '<span class="rarity-tag">◆ premium 4L</span>';
-      else if (product.category === '4L') rarityLabel = '<span class="rarity-tag">● standard 4L</span>';
-      
-      const stockHtml = product.stock > 0 
-        ? `<span class="stock-badge">⚡ only 1 available</span>` 
-        : `<span class="stock-badge out-of-stock">⛔ out of stock</span>`;
-      
-      const buttonDisabled = product.stock <= 0 ? 'disabled' : '';
-      const buttonText = product.stock > 0 ? '🎫 Acquire / Discuss budget' : '⛔ Unavailable';
-      
+    grid.innerHTML = filtered.map(p => {
+      const rarityLabel = p.category === '3L-semi' ? '◈ semi-rare' : (p.category === '4L' && p.price >= 16 ? '◆ premium 4L' : '● standard');
+      const stockClass = p.stock > 0 ? 'stock-indicator' : 'stock-indicator out';
+      const stockText = p.stock > 0 ? '⚡ only 1 left' : '⛔ out of stock';
+      const disabledAttr = p.stock <= 0 ? 'disabled' : '';
+      const btnText = p.stock > 0 ? '🎫 Acquire / Discuss' : 'Unavailable';
       return `
-        <div class="product-card">
-          <div class="username-display">${product.username} ${rarityLabel}</div>
-          ${meaningHtml}
-          <div class="price"><span class="price-value">$${product.price.toFixed(2)} USD</span></div>
-          ${stockHtml}
-          <button class="discord-btn ${buttonDisabled}" data-name="${product.username}" data-price="${product.price}" data-stock="${product.stock}" ${product.stock <= 0 ? 'disabled' : ''}>${buttonText}</button>
+        <div class="product-card-v2">
+          <div class="card-header">
+            <span class="username-v2">${p.username}</span>
+            <span class="rarity-badge">${rarityLabel}</span>
+          </div>
+          ${p.meaning ? `<div class="meaning-text">📖 ${p.meaning}</div>` : ''}
+          <div class="price-v2"><span>$${p.price.toFixed(2)} USD</span></div>
+          <div class="${stockClass}">${stockText}</div>
+          <button class="action-btn" data-name="${p.username}" data-price="${p.price}" data-stock="${p.stock}" ${disabledAttr}>${btnText}</button>
         </div>
       `;
     }).join('');
-
-    document.querySelectorAll('.discord-btn:not([disabled])').forEach(btn => {
-      btn.addEventListener('click', () => {
+    // Attach events to active buttons
+    document.querySelectorAll('.action-btn:not([disabled])').forEach(btn => {
+      btn.addEventListener('click', (e) => {
         const name = btn.getAttribute('data-name');
         const price = btn.getAttribute('data-price');
         window.open('https://discord.gg/EtP4Zbt4rQ', '_blank');
-        alert(`✨ Request for "${name}" ($${price}). Join Discord and mention #purchase-ticket. 3L pure coming soon!`);
+        alert(`✨ Interest for "${name}" ($${price}). Join Discord and open a #purchase-ticket. 3L pure restocking soon.`);
       });
     });
   }
 
-  function initFilters() {
-    const btns = document.querySelectorAll('[data-filter]');
-    btns.forEach(btn => {
+  // Filters & Navigation
+  function initFiltersV2() {
+    const filterBtns = document.querySelectorAll('.filter-pill');
+    filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        const filterVal = btn.getAttribute('data-filter');
-        activeFilter = filterVal;
-        btns.forEach(b => b.classList.remove('active-cat'));
-        btn.classList.add('active-cat');
-        renderProducts(activeFilter);
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.getAttribute('data-filter');
+        renderProductsV2();
+      });
+    });
+    const navLinks = document.querySelectorAll('.nav-v2 a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        const navCat = link.getAttribute('data-nav');
+        const targetBtn = Array.from(filterBtns).find(b => b.getAttribute('data-filter') === navCat);
+        if (targetBtn) targetBtn.click();
+        else document.querySelector('.filter-pill[data-filter="all"]')?.click();
+        navLinks.forEach(l => l.classList.remove('active-nav'));
+        link.classList.add('active-nav');
       });
     });
   }
 
-  // Navigation filter
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      const cat = link.getAttribute('data-cat');
-      const targetBtn = document.querySelector(`[data-filter="${cat}"]`);
-      if (targetBtn) targetBtn.click();
-      else document.querySelector('[data-filter="all"]')?.click();
+  // Particles
+  const particles = ['kzq','wxl','hqt','eokg','vw.b','ct_x','y.dh','xe.i','rpif','asuw','lxkh','xuqg','zdbv'];
+  const particlesContainer = document.getElementById('particlesV2');
+  for (let i = 0; i < 35; i++) {
+    const el = document.createElement('div');
+    el.className = 'particle-v2';
+    el.textContent = particles[i % particles.length];
+    el.style.left = Math.random() * 100 + '%';
+    el.style.animationDuration = 15 + Math.random() * 30 + 's';
+    el.style.animationDelay = Math.random() * 20 + 's';
+    el.style.opacity = 0.03 + Math.random() * 0.05;
+    particlesContainer.appendChild(el);
+  }
+
+  // Cursor effect (desktop)
+  const cursorDot = document.querySelector('.cursor-dot');
+  const cursorRing = document.querySelector('.cursor-ring');
+  if (window.innerWidth > 768) {
+    document.addEventListener('mousemove', (e) => {
+      cursorDot.style.transform = `translate(${e.clientX - 3}px, ${e.clientY - 3}px)`;
+      cursorRing.style.transform = `translate(${e.clientX - 15}px, ${e.clientY - 15}px)`;
     });
-  });
-
-  // Floating particles background
-  const particleNames = ['kzq', 'wxl', 'hqt', 'ncf', 'dqx', 'eokg', 'vw.b', 'ct_x', 'y.dh', 'xe.i', 'rpif', 'asuw', 'lxkh', 'apb4', 'xuqg'];
-  const particlesContainer = document.getElementById('particles');
-  for (let i = 0; i < 28; i++) {
-    const span = document.createElement('span');
-    span.className = 'particle';
-    span.textContent = particleNames[i % particleNames.length] + (Math.random() > 0.7 ? '•' : '');
-    span.style.left = Math.random() * 100 + '%';
-    span.style.top = Math.random() * 100 + '%';
-    span.style.animationDuration = 20 + Math.random() * 30 + 's';
-    span.style.animationDelay = Math.random() * 20 + 's';
-    span.style.opacity = 0.05 + Math.random() * 0.08;
-    particlesContainer.appendChild(span);
+  } else {
+    cursorDot.style.display = 'none';
+    cursorRing.style.display = 'none';
   }
 
-  // Portal entrance
-  const overlay = document.getElementById('portalOverlay');
-  const mainSite = document.getElementById('mainSite');
-  const enterBtn = document.getElementById('enterBtn');
+  // Entrance animation V2
+  const entrance = document.getElementById('entranceV2');
+  const mainContent = document.getElementById('mainV2');
+  const enterBtnV2 = document.getElementById('enterV2Btn');
 
-  function revealWebsite() {
-    overlay.classList.add('portal-hidden');
-    mainSite.classList.add('reveal-main');
-    document.getElementById('year').innerText = new Date().getFullYear();
-    updateStats();
-    renderProducts('all');
-    initFilters();
+  function revealSite() {
+    entrance.classList.add('exit');
+    setTimeout(() => {
+      entrance.style.display = 'none';
+      mainContent.classList.add('revealed');
+      updateStatsUI();
+      renderProductsV2();
+      initFiltersV2();
+    }, 1400);
   }
 
-  enterBtn.addEventListener('click', revealWebsite);
-
-  document.getElementById('heroCta')?.addEventListener('click', () => {
-    document.querySelector('.section-title')?.scrollIntoView({ behavior: 'smooth' });
-  });
+  enterBtnV2.addEventListener('click', revealSite);
+  // Preload stats
+  setTimeout(() => { if (!mainContent.classList.contains('revealed')) revealSite(); }, 500);
 </script>
 </body>
 </html>
