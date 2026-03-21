@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Lab | Rare Username Vault</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #C41E3A;
+      --primary-glow: #FF4D6D;
+      --text-light: #F1F5F9;
+      --text-muted: #A0AAB5;
+      --price-gold: #FFD966;
+    }
+
+    body {
+      background: radial-gradient(circle at 20% 30%, #0D0D12, #020202);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text-light);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* Portal Overlay */
+    .portal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at center, #0A0102 0%, #000000 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      transition: opacity 1.2s cubic-bezier(0.2, 0.9, 0.4, 1), visibility 1.2s;
+    }
+
+    .portal-content {
+      text-align: center;
+      animation: portalPulse 2.2s infinite alternate;
+    }
+
+    .portal-logo {
+      font-size: clamp(3rem, 12vw, 5.6rem);
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      background: linear-gradient(135deg, #FFFFFF, #C41E3A);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 18px rgba(196,30,58,0.6);
+      margin-bottom: 0.5rem;
+    }
+
+    .portal-sub {
+      font-size: 0.9rem;
+      letter-spacing: 0.3rem;
+      text-transform: uppercase;
+      color: #B0B8C5;
+      margin-bottom: 2rem;
+    }
+
+    .enter-button {
+      background: transparent;
+      border: 1.5px solid #C41E3A;
+      padding: 0.9rem 2.6rem;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.2rem;
+      color: #C41E3A;
+      cursor: pointer;
+      transition: all 0.4s;
+      border-radius: 40px;
+    }
+
+    .enter-button:hover {
+      background: #C41E3A;
+      color: #0A0A0C;
+      box-shadow: 0 0 24px #FF4D6D;
+      transform: scale(1.02);
+    }
+
+    @keyframes portalPulse {
+      0% { opacity: 0.7; transform: scale(0.96); }
+      100% { opacity: 1; transform: scale(1.02); }
+    }
+
+    .portal-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .main-site {
+      opacity: 0;
+      transition: opacity 1.8s cubic-bezier(0.2, 0.9, 0.4, 1);
+    }
+
+    .main-site.reveal-main {
+      opacity: 1;
+    }
+
+    /* Header */
+    .site-header {
+      text-align: center;
+      padding: 2rem 1.5rem 1rem;
+      background: rgba(5, 5, 8, 0.75);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(196, 30, 58, 0.4);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .logo-link {
+      font-size: 2.4rem;
+      font-weight: 800;
+      background: linear-gradient(120deg, #fff, #E05A6F);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-decoration: none;
+    }
+
+    .tagline {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #E0E7FF;
+      text-decoration: none;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover {
+      background: #C41E3A;
+      color: #0F0F12;
+    }
+
+    .announcement {
+      background: rgba(196, 30, 58, 0.25);
+      text-align: center;
+      padding: 0.6rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero {
+      background: linear-gradient(125deg, rgba(20, 12, 18, 0.8), rgba(5, 5, 8, 0.9));
+      backdrop-filter: blur(5px);
+      border-radius: 2rem;
+      padding: 3rem 2rem;
+      text-align: center;
+      border: 1px solid rgba(196, 30, 58, 0.5);
+      margin-bottom: 2.5rem;
+    }
+
+    .hero h2 {
+      font-size: 2.4rem;
+      background: linear-gradient(135deg, #fff, #FFA5B6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: #C41E3A;
+      color: #0A0A0C;
+      padding: 0.75rem 2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      margin-top: 1.2rem;
+      text-decoration: none;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: #FF4D6D;
+      transform: translateY(-3px);
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid #C41E3A;
+      padding-left: 1rem;
+    }
+
+    .category-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+
+    .cat-pill {
+      background: rgba(30, 30, 40, 0.7);
+      padding: 0.5rem 1.6rem;
+      border-radius: 40px;
+      font-weight: 500;
+      color: #E0E0E8;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .cat-pill.active-cat {
+      background: #C41E3A;
+      color: #0A0A0C;
+    }
+
+    .cat-pill:hover {
+      background: rgba(196, 30, 58, 0.5);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.6rem;
+      margin-bottom: 2rem;
+    }
+
+    .product-card {
+      background: rgba(18, 18, 22, 0.85);
+      backdrop-filter: blur(8px);
+      border-radius: 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1.3rem;
+      transition: all 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: #C41E3A;
+    }
+
+    .username-display {
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(145deg, #fff, #E2C0C8);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .meaning {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+      border-left: 2px solid #C41E3A;
+      padding-left: 0.6rem;
+    }
+
+    .price {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--price-gold);
+      margin: 0.6rem 0;
+    }
+
+    .rarity-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      background: rgba(196, 30, 58, 0.3);
+      padding: 0.15rem 0.6rem;
+      border-radius: 20px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+
+    .stock-badge {
+      font-size: 0.7rem;
+      background: rgba(196, 30, 58, 0.25);
+      display: inline-block;
+      padding: 0.2rem 0.7rem;
+      border-radius: 30px;
+    }
+
+    .discord-btn {
+      background: rgba(196, 30, 58, 0.9);
+      border: none;
+      width: 100%;
+      margin-top: 0.9rem;
+      padding: 0.7rem;
+      border-radius: 40px;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .discord-btn:hover {
+      background: #C41E3A;
+    }
+
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .trust-item {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.45);
+      border-radius: 1.2rem;
+      padding: 1rem;
+      text-align: center;
+    }
+    .trust-icon {
+      font-size: 2rem;
+      display: block;
+    }
+    .reviews-mini {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+    .review-text {
+      font-style: italic;
+      margin: 0.8rem 0;
+      border-left: 2px solid #C41E3A;
+      padding-left: 1rem;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid rgba(196, 30, 58, 0.25);
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #7A7F8C;
+    }
+    @media (max-width: 680px) {
+      .hero h2 { font-size: 1.8rem; }
+      .price { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="portalOverlay" class="portal-overlay">
+  <div class="portal-content">
+    <div class="portal-logo">THE LAB</div>
+    <div class="portal-sub">EXCLUSIVE RARITY VAULT</div>
+    <button id="enterBtn" class="enter-button">✦ ENTER THE COLLECTION ✦</button>
+  </div>
+</div>
+
+<div id="mainSite" class="main-site">
+  <header class="site-header">
+    <div class="logo-link">THE LAB</div>
+    <div class="tagline">✦ premium 3L / 4L — rarity based pricing ($10-30) ✦</div>
+    <ul class="nav-links">
+      <li><a data-cat="all">All Stock</a></li>
+      <li><a data-cat="3L">3L pure</a></li>
+      <li><a data-cat="3L-semi">3L Semi</a></li>
+      <li><a data-cat="4L">4L letters</a></li>
+      <li><a data-cat="mixed">Mixed</a></li>
+    </ul>
+  </header>
+  <div class="announcement">
+    ⚡ NEW ARRIVALS: eokg (4L) + vw.b (3L-semi) • pricing: 4L $10–20, 3L $20–30
+  </div>
+
+  <div class="container">
+    <div class="hero">
+      <h2>Own a piece of digital rarity</h2>
+      <p>3‑letter, 3L semi, 4L & exclusive combos — dynamic pricing based on category scarcity.</p>
+      <button id="heroCta" class="btn-primary">✨ Browse the vault</button>
+    </div>
+
+    <div class="category-grid" id="categoryFilter">
+      <button data-filter="all" class="cat-pill active-cat">All names</button>
+      <button data-filter="3L" class="cat-pill">3L pure</button>
+      <button data-filter="3L-semi" class="cat-pill">3L · punct.</button>
+      <button data-filter="4L" class="cat-pill">4L letters</button>
+      <button data-filter="mixed" class="cat-pill">mixed</button>
+    </div>
+
+    <div class="section-title">✦ AVAILABLE RARE USERNAMES</div>
+    <div id="productsGrid" class="products-grid"></div>
+
+    <div class="trust-row">
+      <div class="trust-item"><span class="trust-icon">★</span><h3>Trusted vault</h3><p>400+ satisfied collectors</p></div>
+      <div class="trust-item"><span class="trust-icon">🔒</span><h3>Secure tickets</h3><p>Discord escrow & support</p></div>
+      <div class="trust-item"><span class="trust-icon">⚡</span><h3>Instant delivery</h3><p>Within hours after purchase</p></div>
+    </div>
+
+    <div class="reviews-mini">
+      <h3>𓂀 collector voices</h3>
+      <div class="review-text">“The 3L-semi 'vw.b' is insanely rare — pricing is fair for the scarcity.” — @nexus</div>
+      <div class="review-text">“eokg is a clean 4L, got it for a great tier price. Excellent service.” — @velvet</div>
+      <div class="review-text">“Premium names, transparent rarity pricing. The Lab delivers.” — @drifter</div>
+    </div>
+
+    <div style="background: rgba(0,0,0,0.45); border-radius: 1.5rem; padding: 1.5rem; text-align: center; margin-top: 1rem;">
+      <p>✧ Ready to claim? Join our Discord, open a <strong>purchase ticket</strong> — we'll match your budget ✧</p>
+      <a href="https://discord.gg/EtP4Zbt4rQ" target="_blank" class="btn-primary" style="background:#5865F2; display: inline-block; margin-top: 0.5rem;">➤ Join Discord Hub</a>
+    </div>
+  </div>
+  <footer><p>© <span id="year"></span> The Lab — rarity‑adjusted pricing: 4L $10–20 / 3L $20–30 depending on exclusivity.</p></footer>
+</div>
+
+<script>
+  // PRODUCT DATABASE with eokg (4L) and vw.b (3L-semi)
+  const productsData = [
+    // 4L usernames ($10-20 range)
+    { username: 'xuqg', category: '4L', meaning: '', price: 12.50 },
+    { username: 'zdbv', category: '4L', meaning: '', price: 14.75 },
+    { username: 'xqbu', category: '4L', meaning: '', price: 16.25 },
+    { username: 'kbyb', category: '4L', meaning: '', price: 15.50 },
+    { username: 'cqup', category: '4L', meaning: '', price: 13.00 },
+    { username: 'oqhc', category: '4L', meaning: '', price: 17.80 },
+    { username: 'zprw', category: '4L', meaning: '', price: 17.25 },
+    { username: 'srsk', category: '4L', meaning: '', price: 18.90 },
+    { username: 'unxr', category: '4L', meaning: '', price: 18.50 },
+    { username: 'jnqd', category: '4L', meaning: '', price: 14.25 },
+    { username: 'ammv', category: '4L', meaning: '', price: 13.75 },
+    { username: 'gmwv', category: '4L', meaning: '', price: 14.50 },
+    { username: 'tcia', category: '4L', meaning: '', price: 12.80 },
+    { username: 'eanr', category: '4L', meaning: '', price: 15.25 },
+    { username: 'pdrn', category: '4L', meaning: '', price: 14.00 },
+    { username: 'jmgs', category: '4L', meaning: '', price: 13.90 },
+    { username: 'kwhz', category: '4L', meaning: '', price: 16.50 },
+    { username: 'idft', category: '4L', meaning: '', price: 13.25 },
+    { username: 'aenc', category: '4L', meaning: '', price: 14.80 },
+    { username: 'hsst', category: '4L', meaning: '', price: 14.25 },
+    { username: 'uoxe', category: '4L', meaning: 'voice (Old Lombard)', price: 15.75 },
+    { username: 'ebzv', category: '4L', meaning: '', price: 12.90 },
+    { username: 'jbwa', category: '4L', meaning: '', price: 14.50 },
+    { username: 'dtuw', category: '4L', meaning: '', price: 13.50 },
+    { username: 'rpif', category: '4L', meaning: '', price: 12.75 },
+    { username: 'nwuz', category: '4L', meaning: '', price: 11.80 },
+    { username: 'sxzp', category: '4L', meaning: '', price: 14.25 },
+    { username: 'asuw', category: '4L', meaning: '', price: 12.50 },
+    { username: 'lxkh', category: '4L', meaning: '', price: 13.25 },
+    { username: 'olrr', category: '4L', meaning: '', price: 12.50 },
+    { username: 'wfgo', category: '4L', meaning: '', price: 13.00 },
+    { username: 'apb4', category: 'mixed', meaning: '', price: 14.50 },
+    { username: 'at0t', category: 'mixed', meaning: '', price: 13.75 },
+    // NEW 4L ADDITION
+    { username: 'eokg', category: '4L', meaning: 'clean quadruple', price: 16.95 },
+    // 3L-semi usernames ($20-28 range)
+    { username: 'ct_x', category: '3L-semi', meaning: 'crisp + underscore', price: 22.50 },
+    { username: 'y.dh', category: '3L-semi', meaning: 'dot elegance', price: 25.75 },
+    { username: 'xe.i', category: '3L-semi', meaning: 'rare punctuation', price: 26.90 },
+    // NEW 3L-semi ADDITION
+    { username: 'vw.b', category: '3L-semi', meaning: 'dot rarity · exclusive', price: 24.50 },
+    // 3L pure usernames ($22-30 range)
+    { username: 'vze', category: '3L', meaning: 'crisp triple', price: 24.50 },
+    { username: 'qft', category: '3L', meaning: 'scarce consonant', price: 26.00 },
+    { username: 'nyz', category: '3L', meaning: 'sharp acronym', price: 25.50 },
+    { username: 'jwx', category: '3L', meaning: 'ultra rare', price: 28.00 }
+  ];
+
+  let activeFilter = 'all';
+
+  function renderProducts(filterCat = 'all') {
+    const grid = document.getElementById('productsGrid');
+    if (!grid) return;
+    let filtered = productsData;
+    if (filterCat !== 'all') {
+      filtered = productsData.filter(p => p.category === filterCat);
+    }
+    if (filtered.length === 0) {
+      grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:3rem;">✨ No usernames in this category — join Discord for private vault access ✨</div>`;
+      return;
+    }
+    grid.innerHTML = filtered.map(product => {
+      const meaningHtml = product.meaning ? `<div class="meaning">📖 ${product.meaning}</div>` : '';
+      let rarityLabel = '';
+      if (product.category === '3L') rarityLabel = '<span class="rarity-tag">✦ ultra rare</span>';
+      else if (product.category === '3L-semi') rarityLabel = '<span class="rarity-tag">◈ semi rare</span>';
+      else if (product.category === '4L' && product.price >= 16) rarityLabel = '<span class="rarity-tag">◆ premium 4L</span>';
+      
+      return `
+        <div class="product-card">
+          <div class="username-display">${product.username} ${rarityLabel}</div>
+          ${meaningHtml}
+          <div class="price">$${product.price.toFixed(2)} USD</div>
+          <div class="stock-badge">⚡ only 1 available</div>
+          <button class="discord-btn" data-name="${product.username}" data-price="${product.price}">🎫 Acquire / Discuss budget</button>
+        </div>
+      `;
+    }).join('');
+
+    document.querySelectorAll('.discord-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const name = btn.getAttribute('data-name');
+        const price = btn.getAttribute('data-price');
+        window.open('https://discord.gg/EtP4Zbt4rQ', '_blank');
+        alert(`✨ Request for "${name}" ($${price}). Join Discord and mention #purchase-ticket.`);
+      });
+    });
+  }
+
+  function initFilters() {
+    const btns = document.querySelectorAll('[data-filter]');
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filterVal = btn.getAttribute('data-filter');
+        activeFilter = filterVal;
+        btns.forEach(b => b.classList.remove('active-cat'));
+        btn.classList.add('active-cat');
+        renderProducts(activeFilter);
+      });
+    });
+  }
+
+  // Navigation filters
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      const cat = link.getAttribute('data-cat');
+      const targetBtn = document.querySelector(`[data-filter="${cat}"]`);
+      if (targetBtn) targetBtn.click();
+      else document.querySelector('[data-filter="all"]')?.click();
+    });
+  });
+
+  // Portal entrance
+  const overlay = document.getElementById('portalOverlay');
+  const mainSite = document.getElementById('mainSite');
+  const enterBtn = document.getElementById('enterBtn');
+
+  function revealWebsite() {
+    overlay.classList.add('portal-hidden');
+    mainSite.classList.add('reveal-main');
+    document.getElementById('year').innerText = new Date().getFullYear();
+    renderProducts('all');
+    initFilters();
+  }
+
+  enterBtn.addEventListener('click', revealWebsite);
+
+  // Hero CTA scroll
+  document.getElementById('heroCta')?.addEventListener('click', () => {
+    document.querySelector('.section-title')?.scrollIntoView({ behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
