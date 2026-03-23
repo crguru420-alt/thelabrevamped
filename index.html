@@ -402,6 +402,21 @@
       -webkit-background-clip: text;
       color: transparent;
     }
+    .original-price {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      text-decoration: line-through;
+      margin-left: 0.5rem;
+      font-weight: normal;
+    }
+    .discount-badge {
+      font-size: 0.6rem;
+      background: rgba(16,185,129,0.2);
+      color: #10B981;
+      padding: 0.2rem 0.5rem;
+      border-radius: 20px;
+      margin-left: 0.5rem;
+    }
     .stock-indicator {
       font-size: 0.7rem;
       background: rgba(16,185,129,0.15);
@@ -527,13 +542,13 @@
     </div>
   </header>
   <div class="strip">
-    <i class="fas fa-bolt"></i> NEW DROPS: eokg (4L) + vw.b (3L-semi) • 3L pure: RESTOCKING • flexible pricing via tickets
+    <i class="fas fa-bolt"></i> 🔥 PRICE DROP: 30% OFF ALL NAMES • NEW DROPS: eokg (4L) + vw.b (3L-semi) • 3L pure: RESTOCKING SOON
   </div>
 
   <div class="container-premium">
     <div class="hero-premium">
       <h1>Digital Identity,<br>Elevated.</h1>
-      <p style="margin-top: 0.8rem;">Curated 3L semi & 4L usernames • rarity-based pricing ($10–28)</p>
+      <p style="margin-top: 0.8rem;">Curated 3L semi & 4L usernames • <strong style="color: #10B981;">30% OFF ALL PRICES</strong> • limited time</p>
       <div class="stats-row">
         <div class="stat-block"><span class="stat-num" id="statTotal">0</span><br>Available</div>
         <div class="stat-block"><span class="stat-num" id="statPremium">0</span><br>Premium Tier</div>
@@ -562,9 +577,9 @@
     <!-- Reviews -->
     <div class="review-section">
       <h3><i class="fas fa-gem" style="color: var(--primary);"></i> Collector Praise</h3>
-      <div class="review-item">“vw.b is a true 3L semi gem — transaction was seamless.” — @zenith</div>
-      <div class="review-item">“eokg gave my profile that premium edge. The Lab’s inventory is fire.” — @velvet</div>
-      <div class="review-item">“Patiently waiting for 3L pure restock, their 4L collection is unmatched.” — @drifter</div>
+      <div class="review-item">“30% off made vw.b an absolute steal — premium 3L semi at an amazing price.” — @zenith</div>
+      <div class="review-item">“eokg for under $12? The Lab's price drop is incredible.” — @velvet</div>
+      <div class="review-item">“Best time to grab rare usernames. Unbeatable value.” — @drifter</div>
     </div>
 
     <!-- CTA -->
@@ -575,7 +590,7 @@
     </div>
   </div>
   <footer>
-    <p>© 2025 THE LAB — rarity‑adjusted pricing • 3L pure: out of stock (coming soon) • 4L $10–20 • 3L semi $20–28</p>
+    <p>© 2025 THE LAB — <strong>30% OFF ALL PRICES</strong> • 4L from $7.70 • 3L semi from $15.40 • 3L pure restocking soon</p>
   </footer>
 </div>
 
@@ -583,53 +598,62 @@
 <div class="particle-canvas" id="particleCanvas"></div>
 
 <script>
-  // PRODUCT DATABASE V3 — includes eokg (4L) & vw.b (3L-semi) — NO 3L PURE
-  const products = [
-    { username: 'xuqg', category: '4L', meaning: '', price: 12.50, stock: 1 },
-    { username: 'zdbv', category: '4L', meaning: '', price: 14.75, stock: 1 },
-    { username: 'xqbu', category: '4L', meaning: '', price: 16.25, stock: 1 },
-    { username: 'kbyb', category: '4L', meaning: '', price: 15.50, stock: 1 },
-    { username: 'cqup', category: '4L', meaning: '', price: 13.00, stock: 1 },
-    { username: 'oqhc', category: '4L', meaning: '', price: 17.80, stock: 1 },
-    { username: 'zprw', category: '4L', meaning: '', price: 17.25, stock: 1 },
-    { username: 'srsk', category: '4L', meaning: '', price: 18.90, stock: 1 },
-    { username: 'unxr', category: '4L', meaning: '', price: 18.50, stock: 1 },
-    { username: 'jnqd', category: '4L', meaning: '', price: 14.25, stock: 1 },
-    { username: 'ammv', category: '4L', meaning: '', price: 13.75, stock: 1 },
-    { username: 'gmwv', category: '4L', meaning: '', price: 14.50, stock: 1 },
-    { username: 'tcia', category: '4L', meaning: '', price: 12.80, stock: 1 },
-    { username: 'eanr', category: '4L', meaning: '', price: 15.25, stock: 1 },
-    { username: 'pdrn', category: '4L', meaning: '', price: 14.00, stock: 1 },
-    { username: 'jmgs', category: '4L', meaning: '', price: 13.90, stock: 1 },
-    { username: 'kwhz', category: '4L', meaning: '', price: 16.50, stock: 1 },
-    { username: 'idft', category: '4L', meaning: '', price: 13.25, stock: 1 },
-    { username: 'aenc', category: '4L', meaning: '', price: 14.80, stock: 1 },
-    { username: 'hsst', category: '4L', meaning: '', price: 14.25, stock: 1 },
-    { username: 'uoxe', category: '4L', meaning: 'voice (Old Lombard)', price: 15.75, stock: 1 },
-    { username: 'ebzv', category: '4L', meaning: '', price: 12.90, stock: 1 },
-    { username: 'jbwa', category: '4L', meaning: '', price: 14.50, stock: 1 },
-    { username: 'dtuw', category: '4L', meaning: '', price: 13.50, stock: 1 },
-    { username: 'rpif', category: '4L', meaning: '', price: 12.75, stock: 1 },
-    { username: 'nwuz', category: '4L', meaning: '', price: 11.80, stock: 1 },
-    { username: 'sxzp', category: '4L', meaning: '', price: 14.25, stock: 1 },
-    { username: 'asuw', category: '4L', meaning: '', price: 12.50, stock: 1 },
-    { username: 'lxkh', category: '4L', meaning: '', price: 13.25, stock: 1 },
-    { username: 'olrr', category: '4L', meaning: '', price: 12.50, stock: 1 },
-    { username: 'wfgo', category: '4L', meaning: '', price: 13.00, stock: 1 },
-    { username: 'eokg', category: '4L', meaning: 'clean quadruple — fresh drop', price: 16.95, stock: 1 },
-    { username: 'apb4', category: 'mixed', meaning: 'alphanumeric edge', price: 14.50, stock: 1 },
-    { username: 'at0t', category: 'mixed', meaning: 'zero touch', price: 13.75, stock: 1 },
-    { username: 'ct_x', category: '3L-semi', meaning: 'crisp + underscore', price: 22.50, stock: 1 },
-    { username: 'y.dh', category: '3L-semi', meaning: 'dot elegance', price: 25.75, stock: 1 },
-    { username: 'xe.i', category: '3L-semi', meaning: 'rare punctuation', price: 26.90, stock: 1 },
-    { username: 'vw.b', category: '3L-semi', meaning: 'dot rarity · exclusive', price: 24.50, stock: 1 }
+  // PRODUCT DATABASE — ALL PRICES REDUCED BY 30%
+  // Original prices multiplied by 0.7 (30% off)
+  const productsRaw = [
+    { username: 'xuqg', category: '4L', meaning: '', originalPrice: 12.50, stock: 1 },
+    { username: 'zdbv', category: '4L', meaning: '', originalPrice: 14.75, stock: 1 },
+    { username: 'xqbu', category: '4L', meaning: '', originalPrice: 16.25, stock: 1 },
+    { username: 'kbyb', category: '4L', meaning: '', originalPrice: 15.50, stock: 1 },
+    { username: 'cqup', category: '4L', meaning: '', originalPrice: 13.00, stock: 1 },
+    { username: 'oqhc', category: '4L', meaning: '', originalPrice: 17.80, stock: 1 },
+    { username: 'zprw', category: '4L', meaning: '', originalPrice: 17.25, stock: 1 },
+    { username: 'srsk', category: '4L', meaning: '', originalPrice: 18.90, stock: 1 },
+    { username: 'unxr', category: '4L', meaning: '', originalPrice: 18.50, stock: 1 },
+    { username: 'jnqd', category: '4L', meaning: '', originalPrice: 14.25, stock: 1 },
+    { username: 'ammv', category: '4L', meaning: '', originalPrice: 13.75, stock: 1 },
+    { username: 'gmwv', category: '4L', meaning: '', originalPrice: 14.50, stock: 1 },
+    { username: 'tcia', category: '4L', meaning: '', originalPrice: 12.80, stock: 1 },
+    { username: 'eanr', category: '4L', meaning: '', originalPrice: 15.25, stock: 1 },
+    { username: 'pdrn', category: '4L', meaning: '', originalPrice: 14.00, stock: 1 },
+    { username: 'jmgs', category: '4L', meaning: '', originalPrice: 13.90, stock: 1 },
+    { username: 'kwhz', category: '4L', meaning: '', originalPrice: 16.50, stock: 1 },
+    { username: 'idft', category: '4L', meaning: '', originalPrice: 13.25, stock: 1 },
+    { username: 'aenc', category: '4L', meaning: '', originalPrice: 14.80, stock: 1 },
+    { username: 'hsst', category: '4L', meaning: '', originalPrice: 14.25, stock: 1 },
+    { username: 'uoxe', category: '4L', meaning: 'voice (Old Lombard)', originalPrice: 15.75, stock: 1 },
+    { username: 'ebzv', category: '4L', meaning: '', originalPrice: 12.90, stock: 1 },
+    { username: 'jbwa', category: '4L', meaning: '', originalPrice: 14.50, stock: 1 },
+    { username: 'dtuw', category: '4L', meaning: '', originalPrice: 13.50, stock: 1 },
+    { username: 'rpif', category: '4L', meaning: '', originalPrice: 12.75, stock: 1 },
+    { username: 'nwuz', category: '4L', meaning: '', originalPrice: 11.80, stock: 1 },
+    { username: 'sxzp', category: '4L', meaning: '', originalPrice: 14.25, stock: 1 },
+    { username: 'asuw', category: '4L', meaning: '', originalPrice: 12.50, stock: 1 },
+    { username: 'lxkh', category: '4L', meaning: '', originalPrice: 13.25, stock: 1 },
+    { username: 'olrr', category: '4L', meaning: '', originalPrice: 12.50, stock: 1 },
+    { username: 'wfgo', category: '4L', meaning: '', originalPrice: 13.00, stock: 1 },
+    { username: 'eokg', category: '4L', meaning: 'clean quadruple — fresh drop', originalPrice: 16.95, stock: 1 },
+    { username: 'apb4', category: 'mixed', meaning: 'alphanumeric edge', originalPrice: 14.50, stock: 1 },
+    { username: 'at0t', category: 'mixed', meaning: 'zero touch', originalPrice: 13.75, stock: 1 },
+    { username: 'ct_x', category: '3L-semi', meaning: 'crisp + underscore', originalPrice: 22.50, stock: 1 },
+    { username: 'y.dh', category: '3L-semi', meaning: 'dot elegance', originalPrice: 25.75, stock: 1 },
+    { username: 'xe.i', category: '3L-semi', meaning: 'rare punctuation', originalPrice: 26.90, stock: 1 },
+    { username: 'vw.b', category: '3L-semi', meaning: 'dot rarity · exclusive', originalPrice: 24.50, stock: 1 }
   ];
+
+  // Apply 30% discount to all prices
+  const DISCOUNT = 0.7; // 30% off = 70% of original
+  const products = productsRaw.map(p => ({
+    ...p,
+    price: Math.round(p.originalPrice * DISCOUNT * 100) / 100,
+    originalPrice: p.originalPrice
+  }));
 
   let currentFilter = 'all';
 
   function updateStats() {
     const total = products.length;
-    const premium = products.filter(p => p.category === '3L-semi' || (p.category === '4L' && p.price >= 16)).length;
+    const premium = products.filter(p => p.category === '3L-semi' || (p.category === '4L' && p.price >= 11)).length;
     document.getElementById('statTotal').innerText = total;
     document.getElementById('statPremium').innerText = premium;
   }
@@ -646,10 +670,12 @@
       return;
     }
     grid.innerHTML = filtered.map(p => {
-      const rarityLabel = p.category === '3L-semi' ? '◈ semi-rare' : (p.category === '4L' && p.price >= 16 ? '◆ premium 4L' : '● standard');
+      const rarityLabel = p.category === '3L-semi' ? '◈ semi-rare' : (p.category === '4L' && p.price >= 11 ? '◆ premium 4L' : '● standard');
       const stockClass = p.stock > 0 ? 'stock-indicator' : 'stock-indicator out';
       const stockText = p.stock > 0 ? '⚡ only 1 left' : '⛔ out of stock';
       const disabled = p.stock <= 0 ? 'disabled' : '';
+      const originalPriceDisplay = `$${p.originalPrice.toFixed(2)}`;
+      const savingsPercent = Math.round((1 - DISCOUNT) * 100);
       return `
         <div class="card-premium">
           <div class="card-top">
@@ -657,7 +683,11 @@
             <span class="badge-rarity">${rarityLabel}</span>
           </div>
           ${p.meaning ? `<div class="meaning-text">📖 ${p.meaning}</div>` : ''}
-          <div class="price-premium"><span>$${p.price.toFixed(2)} USD</span></div>
+          <div class="price-premium">
+            <span>$${p.price.toFixed(2)} USD</span>
+            <span class="original-price">${originalPriceDisplay}</span>
+            <span class="discount-badge">-${savingsPercent}%</span>
+          </div>
           <div class="${stockClass}">${stockText}</div>
           <button class="acquire-btn" data-name="${p.username}" data-price="${p.price}" ${disabled}>${p.stock > 0 ? '🎫 Acquire / Discuss' : 'Unavailable'}</button>
         </div>
@@ -668,7 +698,7 @@
         const name = btn.getAttribute('data-name');
         const price = btn.getAttribute('data-price');
         window.open('https://discord.gg/EtP4Zbt4rQ', '_blank');
-        alert(`✨ Interest for "${name}" ($${price}). Join Discord and open #purchase-ticket.`);
+        alert(`✨ Interest for "${name}" at $${price} (30% off original!). Join Discord and open #purchase-ticket.`);
       });
     });
   }
